@@ -42,14 +42,16 @@ class Item:
     id: int
     name: str
     quantity: int
+    price: float
     
     # Whenever an item is created it required an id, name and quantity.
     # These are inputted when and where the instance is created.
     
-    def __init__(self, name, quantity):
+    def __init__(self, name, quantity, price):
 
         self.name = name
         self.quantity = quantity
+        self.price = price
         
 # The 'ItemStore' class is used to manage items.
 # When it is defined, users can create and remove items.
@@ -70,9 +72,9 @@ class ItemStore:
     # It involves creating an instance of an item usings values established from a users input, appending that item onto the 'items' attribute and then defining its id based on its index position.
     # The item is also returned so it can be used immediately after it is created.
     
-    def addItem(self, name, quantity):
+    def addItem(self, name, quantity, price):
         
-        item = Item(name, quantity)
+        item = Item(name, quantity, price)
         
         self.items.append(item)
         
@@ -92,8 +94,4 @@ class ItemStore:
         
     def toJSON(self):
         
-        return json.dumps(self.items, 
-                          default=lambda 
-                          o: o.__doc__ ,   
-                          sort_keys=True, 
-                          indent = 4)
+        return json.dumps(json.loadsself.items, indent = 4)

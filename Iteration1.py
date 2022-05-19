@@ -1,5 +1,6 @@
 import Classes
 import logging
+import pathlib
 
 # read = "r"
 # append = "a"
@@ -9,11 +10,12 @@ import logging
 # binary = "b"
 
 itemStore = Classes.ItemStore()
+path = pathlib.Path(__file__).parent.resolve()
     
 def prepareToContinue():
     
     firstCondition = False
-    secondCondition =  False
+    secondCondition = False
     
     while not firstCondition or not secondCondition:
         
@@ -39,12 +41,15 @@ def add():
     
     isAdding = True
 
-    with open("Stockpile/stockpile.txt", "w") as f:
+    with open(str(str(path) + "Stockpile.txt"), "w") as f:
         while isAdding == True:
             nameInput = str(input("What item would you like to add?: "))
             quantityInput = int(input("How many items are you adding?: "))
+            priceInput = float(input("How much does this item cost?: "))
     
-            item = itemStore.addItem(nameInput, quantityInput)
+            item = itemStore.addItem(nameInput, 
+                                     quantityInput, 
+                                     priceInput)
         
             isAdding = prepareToContinue()
             
@@ -57,15 +62,13 @@ def add():
 def start():
     
     try:
-        with open("Stockpile/stockpile.txt", "x") as f:
-            f.close
+        open(str(str(path) + "Stockpile.txt"), "x")
     except:
         print("Stocklist file already exists")
     
     add()
 
     print(str(itemStore.items))
-    print(itemStore.toJSON())
     
 start()
 
