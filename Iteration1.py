@@ -1,6 +1,6 @@
-import ItemStore
+import Classes
 
-itemStore = ItemStore.ItemStore()
+itemStore = Classes.ItemStore()
 
 def prepare(value):
     print(value)
