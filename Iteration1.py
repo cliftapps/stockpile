@@ -2,9 +2,6 @@ import Classes
 import logging
 
 itemStore = Classes.ItemStore()
-
-def prepare(value):
-    logging.debug(value)
     
 def prepareToContinue():
     
@@ -13,20 +10,14 @@ def prepareToContinue():
     
     while not firstCondition or not secondCondition:
         
-        userInput = str(input("Please enter yes or no: ")).casefold
-    
-        y = 'y'.casefold
-        n = 'n'.casefold
-        yes = 'yes'.casefold
-        no = 'no'.casefold
+        userInput = str(input("Please enter y/n: "))
         
-        logging.debug("y: " + str(y) + "\nn: " + str(n) + "\nyes: " + str(yes) + "\nno: " + str(no))
         logging.debug("user input: " + str(userInput))
         logging.debug("condition 1: " + str(firstCondition))
         logging.debug("condition 2: " + str(secondCondition))
         
-        firstCondition = userInput == y or userInput == yes
-        secondCondition =  userInput == n or userInput == no
+        firstCondition = userInput in ["y", "Y"]
+        secondCondition =  userInput in ["n", "N"]
         
         if firstCondition:
             return True
