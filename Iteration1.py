@@ -8,6 +8,7 @@ def prepare(value):
 def prepareToContinue(input):
     print(input)
     
+    while input != 'y'
     if input == 'y' or input == 'yes':
         return True
     else:
