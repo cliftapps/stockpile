@@ -1,44 +1,40 @@
 import Classes
+import logging
 
 itemStore = Classes.ItemStore()
 
 def prepare(value):
-    print(value)
+    logging.debug(value)
     
 def prepareToContinue():
-    userInput = str(input("Please enter yes or no: ")).lower
     
-    userInput = str(userInput)
-    
-    y = 'y'
-    n = 'n'
-    yes = 'yes'
-    no = 'no'
-    
-    firstCondition = userInput == y or userInput == yes
-    secondCondition =  userInput == n or userInput == no
-    
-    print("y: " + str(y) + "\nn: " + str(n) + "\nyes: " + str(yes) + "\nno: " + str(no))
-    print("user input: " + str(userInput))
-    print("condition 1: " + str(firstCondition))
-    print("condition 2: " + str(secondCondition))
+    firstCondition = False
+    secondCondition =  False
     
     while not firstCondition or not secondCondition:
+        
+        userInput = str(input("Please enter yes or no: ")).casefold
+    
+        y = 'y'.casefold
+        n = 'n'.casefold
+        yes = 'yes'.casefold
+        no = 'no'.casefold
+        
+        logging.debug("y: " + str(y) + "\nn: " + str(n) + "\nyes: " + str(yes) + "\nno: " + str(no))
+        logging.debug("user input: " + str(userInput))
+        logging.debug("condition 1: " + str(firstCondition))
+        logging.debug("condition 2: " + str(secondCondition))
+        
+        firstCondition = userInput == y or userInput == yes
+        secondCondition =  userInput == n or userInput == no
+        
         if firstCondition:
             return True
         elif secondCondition:
             return False
         else:
             print("Please enter a valid input.")
-            
-            userInput = str(input("Please enter yes or no: ")).lower
-            
-            userInput = str(userInput)
-            
-            print("y: " + str(y) + "\nn: " + str(n) + "\nyes: " + str(yes) + "\nno: " + str(no))
-            print("user input: " + str(userInput))
-            print("condition 1: " + str(firstCondition))
-            print("condition 2: " + str(secondCondition))
+    
     
 def add():
     global itemStore
