@@ -11,7 +11,7 @@ import pathlib
 # text = "t"
 # binary = "b"
 
-itemStore = Classes.ItemSdtore()
+itemStore = Classes.ItemStore()
     
 def prepareToContinue():
     
@@ -32,20 +32,44 @@ def prepareToContinue():
         else:
             print("Please enter a valid input.")
             
-def prepareForInput(message):
+def prepareForStrInput(message):
     error = True
     
     while error == True:
             
-        if type(input) == str:
-            try:
-                input = str(input(message))
-            except:
-                print("Please enter a valid input")
-                
+        try:
+            input = str(input(message))
             
-        
+            if input.__len__() == 0:
+                print("No input detected, try again")
+                
+                error = True
+                
+        except:
+            print("Please enter a valid input")
+            
+            error = True
+            
+    return input
+
+def prepareForIntInput(message):
+    error = True
     
+    while error == True:
+            
+        try:
+            input = int(input(message))
+            
+            if input.__len__() == 0:
+                print("No input detected, try again")
+                
+                error = True
+                
+        except:
+            print("Please enter a valid input")
+            
+            error = True
+            
     return input
 
     
