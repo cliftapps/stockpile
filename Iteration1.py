@@ -1,3 +1,5 @@
+from textwrap import indent
+from xml.dom.expatbuilder import Rejecter
 import Classes
 import logging
 import pathlib
@@ -9,8 +11,7 @@ import pathlib
 # text = "t"
 # binary = "b"
 
-itemStore = Classes.ItemStore()
-path = pathlib.Path(__file__).parent.resolve()
+itemStore = Classes.ItemSdtore()
     
 def prepareToContinue():
     
@@ -21,12 +22,8 @@ def prepareToContinue():
         
         userInput = str(input("Please enter y/n: "))
         
-        logging.debug("user input: " + str(userInput))
-        logging.debug("condition 1: " + str(firstCondition))
-        logging.debug("condition 2: " + str(secondCondition))
-        
-        firstCondition = userInput in ["y", "Y"]
-        secondCondition =  userInput in ["n", "N"]
+        firstCondition = userInput in ["y", "Y"] or userInput is 'yes'
+        secondCondition =  userInput in ["n", "N"] or userInput is 'no'
         
         if firstCondition:
             return True
@@ -34,15 +31,32 @@ def prepareToContinue():
             return False
         else:
             print("Please enter a valid input.")
+            
+def prepareForInput(message):
+    error = True
     
+    while error == True:
+            
+        if type(input) == str:
+            try:
+                input = str(input(message))
+            except:
+                print("Please enter a valid input")
+                
+            
+        
+    
+    return input
+
     
 def add():
     global itemStore
     
     isAdding = True
 
-    with open(str(str(path) + "Stockpile.txt"), "w") as f:
+    with open(str(str(itemStore.path) + "Stockpile.txt"), "w") as f:
         while isAdding == True:
+            
             nameInput = str(input("What item would you like to add?: "))
             quantityInput = int(input("How many items are you adding?: "))
             priceInput = float(input("How much does this item cost?: "))
@@ -50,25 +64,21 @@ def add():
             item = itemStore.addItem(nameInput, 
                                      quantityInput, 
                                      priceInput)
+            
+            itemStore.save()
         
             isAdding = prepareToContinue()
-            
-        items = itemStore
-            
-        f.writelines(str(items.toJSON()))    
-    
-        f.close
 
 def start():
     
     try:
-        open(str(str(path) + "Stockpile.txt"), "x")
+        open(str(str(itemStore.path) + "Stockpile.txt"), "x")
     except:
-        print("Stocklist file already exists")
+        itemStore.load()
+        
+        print("Loaded stocklist")
     
     add()
-
-    print(str(itemStore.items))
     
 start()
 

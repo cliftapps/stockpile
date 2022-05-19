@@ -1,5 +1,6 @@
 import json
 from uuid import UUID
+import pathlib
 
 # You will notice that in each of the methods used in a class, the instance of that class defined is added to each method automatically.
 # To reference this instance 'self' is needed.
@@ -58,15 +59,11 @@ class Item:
 # This updates an array of 'Item(s)' which can then be encoded to JSON.
 
 class ItemStore:
-    # A shorter way of using: 
-    #   items: [Item] 
-    # 
-    #   __init__(self): 
-    #       self.items = [Item]
-    #
-    # It creates an empty array of items.
+    # Creates an empty array for instances of 'Item'
     
-    items = [Item]
+    items = []
+    
+    path = pathlib.Path(__file__).parent.resolve()
     
     # Once an instance of 'ItemStore' has been established, this method can be utilised.
     # It involves creating an instance of an item usings values established from a users input, appending that item onto the 'items' attribute and then defining its id based on its index position.
@@ -92,6 +89,27 @@ class ItemStore:
     # This encodes the array of 'Item(s)' that have been established.
     # This will get called everytime there is an update to the store so the stock list never becomes outdated.
         
-    def toJSON(self):
+    def save(self):
+        with open(str(str(self.path) + "Stockpile.txt"), "w") as f:
+            
+            f.writelines(str(json.dumps({"stock": [item.__dict__ for item in self.items]}, indent = 2)))
+            
+        print(self.items)
+            
+    def load(self):
+        with open(str(str(self.path) + "Stockpile.txt"), "r") as f:
+            
+            list = f.readlines()
+            
+            string = ''.join(list)
+            
+            data = json.loads(string)
+            
+            for item in data['stock']:
+                
+                self.addItem(item['name'],
+                             item['quantity'],
+                             item['price'])
+                
+        print(self.items)
         
-        return json.dumps(json.loadsself.items, indent = 4)
