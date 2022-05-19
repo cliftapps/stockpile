@@ -1,6 +1,13 @@
 import Classes
 import logging
 
+# read = "r"
+# append = "a"
+# write = "w"
+# create = "x"
+# text = "t"
+# binary = "b"
+
 itemStore = Classes.ItemStore()
     
 def prepareToContinue():
@@ -32,7 +39,7 @@ def add():
     
     isAdding = True
 
-    with open("./stockpile.txt", "w") as f:
+    with open("Stockpile/stockpile.txt", "w") as f:
         while isAdding == True:
             nameInput = str(input("What item would you like to add?: "))
             quantityInput = int(input("How many items are you adding?: "))
@@ -49,9 +56,16 @@ def add():
 
 def start():
     
+    try:
+        with open("Stockpile/stockpile.txt", "x") as f:
+            f.close
+    except:
+        print("Stocklist file already exists")
+    
     add()
 
     print(str(itemStore.items))
+    print(itemStore.toJSON())
     
 start()
 
