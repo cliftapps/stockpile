@@ -6,19 +6,18 @@ from uuid import UUID
 # This will allow the method to manipulate attributes within the class as well as utilise other methods within the class.
 
 # As there is no registration flow, the user class is set-up to be created with all its attributes already established. 
-# A UUID has been used to futureproof the program, just incase a registration flow is implemented.
 
 class User:
-    id: UUID
+    id: int
     username: str
     password: str
     
     # This initializes the class, each attribute is set within the class.
     
-    def __init__(self, username: str, password: str):
-        self.id = UUID()
-        self.username = username
-        self.password = password
+    def __init__(self):
+        self.id = 1
+        self.username = "admin"
+        self.password = "password"
         
 # The security class is used to managed user logins.
 
@@ -27,9 +26,11 @@ class Security:
     
     user = User()
     
-    def login(self, user: User):
+    def login(self, username: str, password: str):
         
-        if self.user.username == user.username & self.user.password == user.password:
+        # UUID is not needed here as there is only one user for this system.
+        
+        if self.user.username == username & self.user.password == password:
             return True
         else:
             return False
