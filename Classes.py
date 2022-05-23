@@ -63,7 +63,7 @@ class ItemStore:
     
     items = []
     
-    path = pathlib.Path(__file__).parent.resolve()
+    path = str(pathlib.Path(__file__).parent.resolve() ) + "/Stockpile/Stockpile.txt"
     
     # Once an instance of 'ItemStore' has been established, this method can be utilised.
     # It involves creating an instance of an item usings values established from a users input, appending that item onto the 'items' attribute and then defining its id based on its index position.
@@ -90,14 +90,14 @@ class ItemStore:
     # This will get called everytime there is an update to the store so the stock list never becomes outdated.
         
     def save(self):
-        with open(str(str(self.path) + "Stockpile.txt"), "w") as f:
+        with open(self.path, "w") as f:
             
             f.writelines(str(json.dumps({"stock": [item.__dict__ for item in self.items]}, indent = 2)))
             
         print(self.items)
             
     def load(self):
-        with open(str(str(self.path) + "Stockpile.txt"), "r") as f:
+        with open(self.path, "r") as f:
             
             list = f.readlines()
             

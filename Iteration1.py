@@ -22,8 +22,8 @@ def prepareToContinue():
         
         userInput = str(input("Please enter y/n: "))
         
-        firstCondition = userInput in ["y", "Y"] or userInput is 'yes'
-        secondCondition =  userInput in ["n", "N"] or userInput is 'no'
+        firstCondition = userInput in ["y", "Y"]
+        secondCondition =  userInput in ["n", "N"]
         
         if firstCondition:
             return True
@@ -32,45 +32,40 @@ def prepareToContinue():
         else:
             print("Please enter a valid input.")
             
-def prepareForStrInput(message):
+def prepareForStrInput(message: str):
     error = True
+    userInput: str
     
     while error == True:
             
         try:
-            input = str(input(message))
-            
-            if input.__len__() == 0:
-                print("No input detected, try again")
-                
-                error = True
-                
+            userInput = str(input(message))
+        
         except:
             print("Please enter a valid input")
             
-            error = True
-            
-    return input
+        if userInput.__len__() == 0:
+            print("No input detected, try again")
+        else:
+            error = False
+           
+    return userInput
 
-def prepareForIntInput(message):
+def prepareForNumberInput(message: str):
     error = True
+    userInput: float
     
     while error == True:
             
         try:
-            input = int(input(message))
+            userInput = input(message)
             
-            if input.__len__() == 0:
-                print("No input detected, try again")
-                
-                error = True
-                
         except:
             print("Please enter a valid input")
             
-            error = True
-            
-    return input
+        error = False
+        
+    return userInput
 
     
 def add():
@@ -78,29 +73,34 @@ def add():
     
     isAdding = True
 
-    with open(str(str(itemStore.path) + "Stockpile.txt"), "w") as f:
-        while isAdding == True:
-            
-            nameInput = str(input("What item would you like to add?: "))
-            quantityInput = int(input("How many items are you adding?: "))
-            priceInput = float(input("How much does this item cost?: "))
-    
-            item = itemStore.addItem(nameInput, 
-                                     quantityInput, 
-                                     priceInput)
-            
-            itemStore.save()
+    while isAdding == True:
         
-            isAdding = prepareToContinue()
+        nameInput = prepareForStrInput("Please enter what item you wish to add: ")
+        quantityInput = int(prepareForNumberInput("How many items are you adding?: "))
+        priceInput = prepareForNumberInput("How much does this item cost?: ")
+
+        item = itemStore.addItem(nameInput, 
+                                    quantityInput, 
+                                    priceInput)
+        
+        itemStore.save()
+    
+        isAdding = prepareToContinue()
 
 def start():
     
     try:
-        open(str(str(itemStore.path) + "Stockpile.txt"), "x")
+        open(itemStore.path, "x")
     except:
-        itemStore.load()
         
         print("Loaded stocklist")
+        
+        try:
+            itemStore.load()
+        except:
+            print("No data found")
+        
+        
     
     add()
     
