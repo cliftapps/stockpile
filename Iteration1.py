@@ -1,8 +1,5 @@
-from textwrap import indent
-from xml.dom.expatbuilder import Rejecter
+from gc import get_threshold
 import Classes
-import logging
-import pathlib
 
 # read = "r"
 # append = "a"
@@ -23,7 +20,7 @@ def prepareToContinue():
         userInput = str(input("Please enter y/n: "))
         
         firstCondition = userInput in ["y", "Y"]
-        secondCondition =  userInput in ["n", "N"]
+        secondCondition = userInput in ["n", "N"]
         
         if firstCondition:
             return True

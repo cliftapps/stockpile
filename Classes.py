@@ -63,7 +63,7 @@ class ItemStore:
     
     items = []
     
-    path = str(pathlib.Path(__file__).parent.resolve() ) + "/Stockpile/Stockpile.txt"
+    path = str(pathlib.Path(__file__).parent.resolve() ) + "/Stockpile.txt"
     
     # Once an instance of 'ItemStore' has been established, this method can be utilised.
     # It involves creating an instance of an item usings values established from a users input, appending that item onto the 'items' attribute and then defining its id based on its index position.
