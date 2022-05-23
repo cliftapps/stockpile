@@ -26,15 +26,16 @@ class Security:
     # The expected instance of user is created here
     
     user = User()
+    isAuthenticated = False
     
     def login(self, username: str, password: str):
         
         # UUID is not needed here as there is only one user for this system.
         
-        if self.user.username == username & self.user.password == password:
-            return True
+        if self.user.username == username and self.user.password == password:
+            self.isAuthenticated = True
         else:
-            return False
+            self.isAuthenticated = False
             
             
  # The 'Item' class is used as a blue print to identify each individual item.

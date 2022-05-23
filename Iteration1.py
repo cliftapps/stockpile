@@ -1,5 +1,6 @@
 from gc import get_threshold
 import Classes
+import math
 
 # read = "r"
 # append = "a"
@@ -50,19 +51,27 @@ def prepareForStrInput(message: str):
 
 def prepareForNumberInput(message: str):
     error = True
-    userInput: float
+    value = 0
     
     while error == True:
+        userInput = input(message)
             
         try:
-            userInput = input(message)
+            value = float(userInput)
             
-        except:
-            print("Please enter a valid input")
+        except UnboundLocalError:
+            print("Please enter valid value")
+            
+            continue
+        
+        except ValueError:
+            print("Please enter a number")
+            
+            continue
             
         error = False
         
-    return userInput
+    return value
 
     
 def add():
@@ -73,12 +82,14 @@ def add():
     while isAdding == True:
         
         nameInput = prepareForStrInput("Please enter what item you wish to add: ")
-        quantityInput = int(prepareForNumberInput("How many items are you adding?: "))
+        quantityInput = prepareForNumberInput("How many items are you adding?: ")
         priceInput = prepareForNumberInput("How much does this item cost?: ")
+        
+        priceInputFormatted = float("{:.2f}".format(float(priceInput)))
 
         item = itemStore.addItem(nameInput, 
-                                    quantityInput, 
-                                    priceInput)
+                                int(float(quantityInput)), 
+                                priceInputFormatted)
         
         itemStore.save()
     
@@ -101,5 +112,19 @@ def start():
     
     add()
     
-start()
+def login():
+    security = Classes.Security()
+
+    while not security.isAuthenticated:
+        username = str(input("Please enter your username: "))
+        password = str(input("Please enter your password: "))
+        
+        security.login(username, password)
+        
+        if security.isAuthenticated:
+            start()
+        else:
+            print("Invalid login, please enter the correct username or password!")
+    
+login()
 
