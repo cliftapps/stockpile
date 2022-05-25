@@ -9,7 +9,7 @@ import math
 # text = "t"
 # binary = "b"
 
-itemStore = Classes.ItemStore()
+itemStore = Classes.itemStore
     
 def prepareToContinue():
     

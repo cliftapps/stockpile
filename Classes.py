@@ -113,4 +113,6 @@ class ItemStore:
                              item['price'])
                 
         print(self.items)
+
+itemStore = ItemStore()
         
