@@ -159,7 +159,7 @@ class ItemStore:
             
         print(self.items)
             
-    def load(self):
+    def load(self, isListed: bool = False):
         with open(self.path, "r") as f:
             
             list = f.readlines()
@@ -173,23 +173,18 @@ class ItemStore:
                 self.addItem(item['name'],
                              item['quantity'],
                              item['price'])
-        
-    def printItems(self):
-        with open(self.path, "r") as f:
+                
+            if isListed:
+                print("Current stock:")
             
-            list = f.readlines()
-            
-            string = ''.join(list)
-            
-            data = json.loads(string)
-            
-            print("Current stock:")
-            
-            for item in data['stock']:
-                print("\nID: " + str(item['id']))
-                print(" Item name: " + item['name'])
-                print(" Item quantity: " + str(item['quantity']))
-                print(" Item price: " + str(item['price']))
+                for item in data['stock']:
+                    print("\nID: " + str(item['id']))
+                    print(" Item name: " + item['name'])
+                    print(" Item quantity: " + str(item['quantity']))
+                    print(" Item price: " + str(item['price']))
+                
+    def buyItem(self, id, quantity):
+        print(self)
         
 
 itemStore = ItemStore()

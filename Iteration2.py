@@ -1,10 +1,16 @@
+from glob import glob
 import Classes
 
 itemStore = Classes.itemStore
+inputs = Classes.Inputs
 
 def start():
-    itemStore.printItems()
+    global itemStore
+    global inputs
     
-    id = 
+    itemStore.load(True)
+    
+    id = inputs.prepareForNumberInput("\nPlease enter product ID: ")
+    quantity = inputs.prepareForNumberInput("\nHow many products would you like?: ")
     
 start()
