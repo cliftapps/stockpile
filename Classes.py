@@ -6,7 +6,69 @@ import pathlib
 # To reference this instance 'self' is needed.
 # This will allow the method to manipulate attributes within the class as well as utilise other methods within the class.
 
-# As there is no registration flow, the user class is set-up to be created with all its attributes already established. 
+# As there is no registration flow, the user class is set-up to be created with all its attributes already established.
+
+class Inputs:
+    
+    @staticmethod
+    def prepareToContinue():
+        
+        firstCondition = False
+        secondCondition = False
+        
+        while not firstCondition or not secondCondition:
+            
+            userInput = str(input("Please enter y/n: "))
+            
+            firstCondition = userInput in ["y", "Y"]
+            secondCondition = userInput in ["n", "N"]
+            
+            if firstCondition:
+                return True
+            elif secondCondition:
+                return False
+            else:
+                print("Please enter a valid input.") 
+    
+    @staticmethod            
+    def prepareForStrInput(message: str):
+        error = True
+        userInput: str
+    
+        while error == True:
+                
+            try:
+                userInput = str(input(message))
+            
+            except:
+                print("Please enter a valid input")
+                
+            if userInput.__len__() == 0:
+                print("No input detected, try again")
+            else:
+                error = False
+            
+        return userInput
+
+    @staticmethod
+    def prepareForNumberInput(message: str):
+        error = True
+        value = 0
+        
+        while error == True:
+            userInput = input(message)
+                
+            try:
+                value = float(userInput)
+                
+            except ValueError:
+                print("Please enter a number")
+                
+                continue
+                
+            error = False
+            
+        return value
 
 class User:
     id: int
@@ -111,8 +173,24 @@ class ItemStore:
                 self.addItem(item['name'],
                              item['quantity'],
                              item['price'])
-                
-        print(self.items)
+        
+    def printItems(self):
+        with open(self.path, "r") as f:
+            
+            list = f.readlines()
+            
+            string = ''.join(list)
+            
+            data = json.loads(string)
+            
+            print("Current stock:")
+            
+            for item in data['stock']:
+                print("\nID: " + str(item['id']))
+                print(" Item name: " + item['name'])
+                print(" Item quantity: " + str(item['quantity']))
+                print(" Item price: " + str(item['price']))
+        
 
 itemStore = ItemStore()
         

@@ -10,80 +10,19 @@ import math
 # binary = "b"
 
 itemStore = Classes.itemStore
-    
-def prepareToContinue():
-    
-    firstCondition = False
-    secondCondition = False
-    
-    while not firstCondition or not secondCondition:
-        
-        userInput = str(input("Please enter y/n: "))
-        
-        firstCondition = userInput in ["y", "Y"]
-        secondCondition = userInput in ["n", "N"]
-        
-        if firstCondition:
-            return True
-        elif secondCondition:
-            return False
-        else:
-            print("Please enter a valid input.")
-            
-def prepareForStrInput(message: str):
-    error = True
-    userInput: str
-    
-    while error == True:
-            
-        try:
-            userInput = str(input(message))
-        
-        except:
-            print("Please enter a valid input")
-            
-        if userInput.__len__() == 0:
-            print("No input detected, try again")
-        else:
-            error = False
-           
-    return userInput
-
-def prepareForNumberInput(message: str):
-    error = True
-    value = 0
-    
-    while error == True:
-        userInput = input(message)
-            
-        try:
-            value = float(userInput)
-            
-        except UnboundLocalError:
-            print("Please enter valid value")
-            
-            continue
-        
-        except ValueError:
-            print("Please enter a number")
-            
-            continue
-            
-        error = False
-        
-    return value
-
+inputs = Classes.Inputs
     
 def add():
     global itemStore
+    global inputs
     
     isAdding = True
 
     while isAdding == True:
         
-        nameInput = prepareForStrInput("Please enter what item you wish to add: ")
-        quantityInput = prepareForNumberInput("How many items are you adding?: ")
-        priceInput = prepareForNumberInput("How much does this item cost?: ")
+        nameInput = inputs.prepareForStrInput("Please enter what item you wish to add: ")
+        quantityInput = inputs.prepareForNumberInput("How many items are you adding?: ")
+        priceInput = inputs.prepareForNumberInput("How much does this item cost?: ")
         
         priceInputFormatted = float("{:.2f}".format(float(priceInput)))
 
@@ -93,7 +32,7 @@ def add():
         
         itemStore.save()
     
-        isAdding = prepareToContinue()
+        isAdding = inputs.prepareToContinue()
 
 def start():
     
