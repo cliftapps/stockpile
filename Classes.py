@@ -11,14 +11,14 @@ import pathlib
 class Inputs:
     
     @staticmethod
-    def prepareToContinue():
+    def prepareToContinue(message: str = "Please enter y/n: "):
         
         firstCondition = False
         secondCondition = False
         
         while not firstCondition or not secondCondition:
             
-            userInput = str(input("Please enter y/n: "))
+            userInput = str(input(message))
             
             firstCondition = userInput in ["y", "Y"]
             secondCondition = userInput in ["n", "N"]
@@ -184,7 +184,7 @@ class ItemStore:
                     print(" Item price: " + str(item['price']))
                 
     def buyItem(self, id, quantity):
-        print(self)
+        self.items[id].name
         
 
 itemStore = ItemStore()
