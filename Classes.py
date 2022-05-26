@@ -100,29 +100,42 @@ class Inputs:
         while error == True:
             userInput = input(message)
             
-            # This tr
+            # This tries to assign a float value of userInput to the value variable.
                 
             try:
                 value = float(userInput)
                 
             except ValueError:
+                # If it is not a number input, a ValueError exception is thrown and the loop iterates.
+                
                 print("Please enter a number")
                 
                 continue
             
+            # If the value is less than zero (or negative) then a print statement is executed and a user is returned to the beginning of the loop.
             
             if value < 0:
                 print("Please enter a positive number")
                 
                 continue
             
+            # This inbedded if is only executed if 'isZeroAllowed' has been set to false.
+            # At this point, the method knows that zero inputs are not allowed.
+            
             if not isZeroAllowed:
+                # Now we are in the statement, if the value happens to be zero, the user will be promted to enter a different value.
+                # This involves being taken to the start of the loop.
+                
                 if value == 0 :
                     print("Please enter a number more than zero")
                 
                     continue
                 
+            # When all the criteria for the input are met, the loop can then be broken.
+                
             error = False
+            
+        # Once the loop is broken, the value the user inputted is returned.
             
         return value
     
@@ -151,20 +164,31 @@ class Security:
     user = User()
     isAuthenticated = False
     
+    # This method is called in the relevant area of the program to validate a users login details.
+    
     def login(self, username: str, password: str):
+        
+        # If the username AND password are equal to that of the user instance that has been defined:
+        # the user will be able to access the iterations.
         
         if self.user.username == username and self.user.password == password:
             self.isAuthenticated = True
         else:
+            # If the credentials don't match, 'isAuthenticated' is set to false, and the value is used in the relevant file.
+            # The user will not be able to proceed until this value is True.
+            
             self.isAuthenticated = False
+            
+    # The 'logout' method indicates that the user is no longer authenticated and then ends the program.
             
     def logout(self):
         self.isAuthenticated = False
         
+        # This is the last line the program will execute if the user follows the relevant flow.
+        # Once this line is executed, the program will end.
+        
         print("\nUser " + self.user.username + " has been logged out!")
 
-            
-            
  # The 'Item' class is used as a blue print to identify each individual item.
 
 class Item:
@@ -178,14 +202,22 @@ class Item:
     # These are inputted when and where the instance is created.
     
     def __init__(self, name, quantity, price):
+        # All attributes are set appart from the ID, which is set later depending on the items index position in an array.
 
         self.name = name
+        
+        # The 'setQuantity' method is used to establish the 'hasStock' attribute as a computed property.
+        
         self.setQuantity(quantity)
         self.price = price
         
     def setQuantity(self, value: int):
+        # hasStock is set to false if the quantity is set to zero, otherwise it is True.
+        
         self.quantity = value
         self.hasStock = value != 0
+        
+        # hasStock is returned to be used later in another file.
         
         return self.hasStock
         
@@ -194,9 +226,12 @@ class Item:
 # This updates an array of 'Item(s)' which can then be encoded to JSON.
 
 class ItemStore:
-    # Creates an empty array for instances of 'Item'
+    # Creates an empty array.
+    # This can take any instance of any object, but will only be used for 'Item(s)'
     
     items = []
+    
+    # This grabs the path of the stocklist.txt file.
     
     path = str(pathlib.Path(__file__).parent.resolve() ) + "/Stockpile.txt"
     
@@ -206,11 +241,19 @@ class ItemStore:
     
     def addItem(self, name, quantity, price):
         
+        # An instance of an 'Item' is created
+        
         item = Item(name, quantity, price)
+        
+        # When an item is created, it is appended onto the array of self.items.
         
         self.items.append(item)
         
+        # The unique identifier of the item is set using the index position is holds in the self.items array.
+        
         item.id = self.items.index(item)
+        
+        # An item is returned to be used elsewhere if needed.
         
         return item
     
