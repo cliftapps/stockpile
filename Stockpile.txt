@@ -62,6 +62,20 @@
       "hasStock": true,
       "price": 299.99,
       "id": 8
+    },
+    {
+      "name": "t",
+      "quantity": 10.0,
+      "hasStock": true,
+      "price": 0.0,
+      "id": 9
+    },
+    {
+      "name": "gold",
+      "quantity": 12,
+      "hasStock": true,
+      "price": 22.0,
+      "id": 10
     }
   ]
 }

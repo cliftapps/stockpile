@@ -6,57 +6,101 @@ import pathlib
 # To reference this instance 'self' is needed.
 # This will allow the method to manipulate attributes within the class as well as utilise other methods within the class.
 
-# As there is no registration flow, the user class is set-up to be created with all its attributes already established.
+# Inputs are used all over both iterations, there will only ever need to be one version of these inputs.
+# @staticmethod allows the methods to be accesses without the class being instantiated.
 
 class Inputs:
     
     @staticmethod
     def prepareToContinue(message: str = "Please enter y/n: "):
         
+        # Method assumes input is false by default
+        
         firstCondition = False
         secondCondition = False
         
+        # While the conditions are false, the loop will continue to iterate.
+        
         while not firstCondition or not secondCondition:
+            
+            # User is prompted to provide an input with a custom message that is created when the method is called.
             
             userInput = str(input(message))
             
+            # Conditions are reset depending on what the user inputs.
+            # Both conditions are ammended and are assigned True/False values depending on whether the input is 'y' or 'n'
+            # The first condition will remain false if the input is not 'y' or 'Y'.
+            # The second condition will remain false if the input is not 'n' or 'N'.
+            
             firstCondition = userInput in ["y", "Y"]
             secondCondition = userInput in ["n", "N"]
+            
+            # If statement checks the condition values and returns a true of false value to be used in various areas of the program.
             
             if firstCondition:
                 return True
             elif secondCondition:
                 return False
             else:
+                # If the input is invalid, this message will be displayed e.g., a user enter 'g'.
+                
                 print("Please enter a valid input.") 
+                
+    # This method handles string inputs
     
     @staticmethod            
     def prepareForStrInput(message: str):
         error = True
         userInput: str
+        
+        # Error is assumed and a 'userInput' variable is declared.
     
         while error == True:
+            
+            # The method attempts to assign the users input the the 'userInput' variable
                 
             try:
                 userInput = str(input(message))
             
             except:
+                # If the value is invalid for whatever reason, this statement will be printed.
+                # Strings are quite flexible so it is unlikely this will be called.
+                
                 print("Please enter a valid input")
+                
+            # If the user has not inputted anything, they will be prompted to try and enter the input again.
                 
             if userInput.__len__() == 0:
                 print("No input detected, try again")
+                
+                continue
             else:
                 error = False
+                
+        # If valid, the user input will be returned.
             
         return userInput
 
+    # Number inputs are handled in this method
+    # In some cases, zeros will be needed, and in other cases zeros are not needed.
+    # The method assumes that zeros will be allowed, the user can ammend this when the method is called if they don't want zero to be used.
+
     @staticmethod
     def prepareForNumberInput(message: str, isZeroAllowed: bool = True):
+        # An error is assumed be default
+        
         error = True
+        
+        # Value is set already, otherwise an assignment error occurs.
+        
         value = 0
+        
+        # The loop will continue to iterate while the error remains true.
         
         while error == True:
             userInput = input(message)
+            
+            # This tr
                 
             try:
                 value = float(userInput)
@@ -81,6 +125,8 @@ class Inputs:
             error = False
             
         return value
+    
+# As there is no registration flow, the user class is set-up to be created with all its attributes already established.
 
 class User:
     id: int
@@ -90,6 +136,9 @@ class User:
     # This initializes the class, each attribute is set within the class.
     
     def __init__(self):
+        # This method is automatically run when the class is instantiated.
+        # This values will be set upon creation of the object instance and available in the relevant place.
+        
         self.id = 1
         self.username = "admin"
         self.password = "password"
@@ -180,7 +229,7 @@ class ItemStore:
             
             f.writelines(str(json.dumps({"stock": [item.__dict__ for item in self.items]}, indent = 2)))
             
-    def load(self, isListed: bool = False):
+    def load(self, isItemListPrinted: bool = False):
         self.items.clear()
         
         with open(self.path, "r") as f:
@@ -197,7 +246,7 @@ class ItemStore:
                              item['quantity'],
                              item['price'])
                 
-            if isListed:
+            if isItemListPrinted:
                 print("\nCurrent stock:")
             
                 for item in data['stock']:
