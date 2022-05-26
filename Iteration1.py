@@ -21,7 +21,7 @@ def add():
     while isAdding == True:
         
         nameInput = inputs.prepareForStrInput("\nPlease enter what item you wish to add: ")
-        quantityInput = inputs.prepareForNumberInput("How many items are you adding?: ")
+        quantityInput = inputs.prepareForNumberInput("How many items are you adding?: ", isZeroAllowed = False)
         priceInput = inputs.prepareForNumberInput("How much does this item cost?: ")
         
         priceInputFormatted = float("{:.2f}".format(float(priceInput)))

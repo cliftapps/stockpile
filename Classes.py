@@ -51,7 +51,7 @@ class Inputs:
         return userInput
 
     @staticmethod
-    def prepareForNumberInput(message: str):
+    def prepareForNumberInput(message: str, isZeroAllowed: bool = True):
         error = True
         value = 0
         
@@ -65,6 +65,18 @@ class Inputs:
                 print("Please enter a number")
                 
                 continue
+            
+            
+            if value < 0:
+                print("Please enter a positive number")
+                
+                continue
+            
+            if not isZeroAllowed:
+                if value == 0 :
+                    print("Please enter a number more than zero")
+                
+                    continue
                 
             error = False
             

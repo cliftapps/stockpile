@@ -37,7 +37,7 @@ def start():
         if not inputs.prepareToContinue("\nIs this the correct item? y/n: "):
             continue
         else:
-            quantity = inputs.prepareForNumberInput("\nHow many products would you like?: ")
+            quantity = inputs.prepareForNumberInput("\nHow many products would you like?: ", False)
             
             if quantity > itemStore.items[id].quantity:
                 print("\nNot enough stock, there are only " + str(int(itemStore.items[id].quantity)) + " " + name + "s")
