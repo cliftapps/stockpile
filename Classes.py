@@ -8,11 +8,12 @@ import pathlib
 
 # Inputs are used all over both iterations, there will only ever need to be one version of these inputs.
 # @staticmethod allows the methods to be accesses without the class being instantiated.
+# 'isIterationDecision' is for the one instance of this method where the user decides whether they're inserting or viewing/ordering items.
 
 class Inputs:
     
     @staticmethod
-    def prepareToContinue(message: str = "Please enter y/n: "):
+    def prepareToContinue(message: str = "Please enter y/n: ", isIterationDecision: bool = False):
         
         # Method assumes input is false by default
         
@@ -31,9 +32,21 @@ class Inputs:
             # Both conditions are ammended and are assigned True/False values depending on whether the input is 'y' or 'n'
             # The first condition will remain false if the input is not 'y' or 'Y'.
             # The second condition will remain false if the input is not 'n' or 'N'.
+            # I have taken the liberty of adding a boolean for the decision for which iteration flow to follow.
+            # 'userInput in ['x', 'y']' will only allow the characters indicated to change either condition to true.
             
-            firstCondition = userInput in ["y", "Y"]
-            secondCondition = userInput in ["n", "N"]
+            if not isIterationDecision:
+                
+                # 'y' for yes, 'n' for no
+                
+                firstCondition = userInput in ["y", "Y"]
+                secondCondition = userInput in ["n", "N"]
+            else:
+                
+                # 'i' for insert, 'v' for view or 'o' for order.
+                
+                firstCondition = userInput in ["i", "I"]
+                secondCondition = userInput in ["v", "V", "o", "O"]
             
             # If statement checks the condition values and returns a true of false value to be used in various areas of the program.
             

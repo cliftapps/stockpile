@@ -43,7 +43,7 @@ def login():
             # to insert stock.
             
             while security.isAuthenticated:
-                if inputs.prepareToContinue("\nPlease enter 'y' to insert stock or 'n' to view/order stock: "):
+                if inputs.prepareToContinue("\nPlease enter 'i' to insert stock, or 'v' or 'o' to view/order stock: ", isIterationDecision = True):
                     # This calls the method start() from within Iteration 1 which starts the stock insertion flow.
                     
                     Iteration1.start()
