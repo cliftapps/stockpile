@@ -16,7 +16,7 @@
     },
     {
       "name": "hats",
-      "quantity": 21.0,
+      "quantity": 19.0,
       "hasStock": true,
       "price": 20.0,
       "id": 2
@@ -27,6 +27,41 @@
       "hasStock": true,
       "price": 10.59,
       "id": 3
+    },
+    {
+      "name": "gold",
+      "quantity": 12,
+      "hasStock": true,
+      "price": 33.0,
+      "id": 4
+    },
+    {
+      "name": "hoodie",
+      "quantity": 12,
+      "hasStock": true,
+      "price": 33.0,
+      "id": 5
+    },
+    {
+      "name": "plank",
+      "quantity": 50.0,
+      "hasStock": true,
+      "price": 12.55,
+      "id": 6
+    },
+    {
+      "name": "golf ball",
+      "quantity": 400,
+      "hasStock": true,
+      "price": 5.0,
+      "id": 7
+    },
+    {
+      "name": "gold bar",
+      "quantity": 8,
+      "hasStock": true,
+      "price": 299.99,
+      "id": 8
     }
   ]
 }

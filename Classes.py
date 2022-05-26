@@ -92,12 +92,16 @@ class Security:
     
     def login(self, username: str, password: str):
         
-        # UUID is not needed here as there is only one user for this system.
-        
         if self.user.username == username and self.user.password == password:
             self.isAuthenticated = True
         else:
             self.isAuthenticated = False
+            
+    def logout(self):
+        self.isAuthenticated = False
+        
+        print("\nUser " + self.user.username + " has been logged out!")
+
             
             
  # The 'Item' class is used as a blue print to identify each individual item.
@@ -182,7 +186,7 @@ class ItemStore:
                              item['price'])
                 
             if isListed:
-                print("Current stock:")
+                print("\nCurrent stock:")
             
                 for item in data['stock']:
                     
@@ -200,18 +204,14 @@ class ItemStore:
         
         while isBuyingItem:
 
-            if quantity > item.quantity:
-                print("Not enough stock, there are only " + str(item) + " items")
-                
-                continue
-            elif quantity <= item.quantity:
-                item.quantity -= quantity
-                
-                item.setQuantity(item.quantity)
-                
-                isBuyingItem = False
+            item.quantity -= quantity
             
-        self.save()
+            item.setQuantity(item.quantity)
+            
+            isBuyingItem = False
+            
+        if not isBuyingItem:
+            self.save()
     
 itemStore = ItemStore()
         

@@ -20,7 +20,7 @@ def add():
 
     while isAdding == True:
         
-        nameInput = inputs.prepareForStrInput("Please enter what item you wish to add: ")
+        nameInput = inputs.prepareForStrInput("\nPlease enter what item you wish to add: ")
         quantityInput = inputs.prepareForNumberInput("How many items are you adding?: ")
         priceInput = inputs.prepareForNumberInput("How much does this item cost?: ")
         
@@ -32,36 +32,22 @@ def add():
         
         itemStore.save()
     
-        isAdding = inputs.prepareToContinue()
+        isAdding = inputs.prepareToContinue("Would you like to add more items? y/n: ")
 
 def start():
+    
+    print("\n--Add Stock--")
     
     try:
         open(itemStore.path, "x")
     except:
         
-        print("Loaded stocklist")
+        print("\nLoaded stocklist")
         
         try:
             itemStore.load()
         except:
-            print("No data found")
+            print("\nNo data found")
         
     add()
-    
-def login():
-    security = Classes.Security()
-
-    while not security.isAuthenticated:
-        username = str(input("Please enter your username: "))
-        password = str(input("Please enter your password: "))
-        
-        security.login(username, password)
-        
-        if security.isAuthenticated:
-            start()
-        else:
-            print("Invalid login, please enter the correct username or password!")
-    
-login()
 
