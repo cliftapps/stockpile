@@ -107,6 +107,7 @@ class Item:
     name: str
     quantity: int
     price: float
+    hasStock: bool
     
     # Whenever an item is created it required an id, name and quantity.
     # These are inputted when and where the instance is created.
@@ -114,8 +115,14 @@ class Item:
     def __init__(self, name, quantity, price):
 
         self.name = name
-        self.quantity = quantity
+        self.setQuantity(quantity)
         self.price = price
+        
+    def setQuantity(self, value: int):
+        self.quantity = value
+        self.hasStock = value != 0
+        
+        return self.hasStock
         
 # The 'ItemStore' class is used to manage items.
 # When it is defined, users can create and remove items.
@@ -157,9 +164,9 @@ class ItemStore:
             
             f.writelines(str(json.dumps({"stock": [item.__dict__ for item in self.items]}, indent = 2)))
             
-        print(self.items)
-            
     def load(self, isListed: bool = False):
+        self.items.clear()
+        
         with open(self.path, "r") as f:
             
             list = f.readlines()
@@ -178,14 +185,33 @@ class ItemStore:
                 print("Current stock:")
             
                 for item in data['stock']:
+                    
                     print("\nID: " + str(item['id']))
-                    print(" Item name: " + item['name'])
-                    print(" Item quantity: " + str(item['quantity']))
-                    print(" Item price: " + str(item['price']))
+                    if item['hasStock']:
+                        print(" Item name: " + item['name'])
+                        print(" Item quantity: " + str(int(item['quantity'])))
+                        print(" Item price: £" + str(item['price']))
+                    else:
+                        print(" Item out of stock! Sorry :(")
                 
-    def buyItem(self, id, quantity):
-        self.items[id].name
+    def buyItem(self, id, quantity: int):
+        isBuyingItem = True
+        item: Item = self.items[id]
         
+        while isBuyingItem:
 
+            if quantity > item.quantity:
+                print("Not enough stock, there are only " + str(item) + " items")
+                
+                continue
+            elif quantity <= item.quantity:
+                item.quantity -= quantity
+                
+                item.setQuantity(item.quantity)
+                
+                isBuyingItem = False
+            
+        self.save()
+    
 itemStore = ItemStore()
         

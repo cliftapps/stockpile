@@ -47,8 +47,6 @@ def start():
         except:
             print("No data found")
         
-        
-    
     add()
     
 def login():
