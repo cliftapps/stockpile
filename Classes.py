@@ -268,54 +268,128 @@ class ItemStore:
     # This will get called everytime there is an update to the store so the stock list never becomes outdated.
         
     def save(self):
+        # stocklist.txt is opened using the path instantiated when an instance of the itemStore is created globally.
+        
         with open(self.path, "w") as f:
+            
+            # Here is where the array of self.items is converted into a JSON format and written into stocklist.txt
+            # Each items are converted into python dictionaries using the '.__dict__' inbuilt function using a for loop.
+            # This is then held in one more dictionary called 'stock'.
+            # 'stock' holds the array of items represented as dictionaries.
             
             f.writelines(str(json.dumps({"stock": [item.__dict__ for item in self.items]}, indent = 2)))
             
+    # The load method here is responsible for reading the stockpile.txt file and decoding the JSON in order to access individual elements.
+            
     def load(self, isItemListPrinted: bool = False):
+        # Before the stocklist is loaded, the array of 'Items' should be cleared each time.
+        # The save method will ensure that 'stocklist.txt' us always up to date.
+        # Loading the file after '.clear()' has been executed, the 'stocklist.txt' file will be loaded and self.items will have the most recent entries.
+        
         self.items.clear()
+        
+        # Here 'stocklist.txt' is opened with the intention of being read, implicated by "r".
+        # The open function will provide different inbuilt methods depending on what character is recieves.
+        # We have seen that "w" is write.
+        # Other access modes include: "a" for append and "x" for create.
+        # Only "r", "x" and "w" are used in this program.
         
         with open(self.path, "r") as f:
             
+            # The list variable will contain all the lines of txt present in the txt file, no matter how long it is.
+            
             list = f.readlines()
+            
+            # 'list[str]' is not the format we want for loading the JSON, the JSON needs to be in one string.
+            # The 'join()' function "joins" the list of strings together to create one string.
             
             string = ''.join(list)
             
+            # Once the string is joined together, it can then be converted from JSON data into dictionaries that python can read.
+            # e.g., boolean values are all lowercase in JSON, in python the first letter is uppercase.
+            
             data = json.loads(string)
             
+            # Now that python can read the list, individual items can be picked out and manipulated.
+            
             for item in data['stock']:
+                
+                # Here is where items are recreated and appended back into the self.items array.
+                # Now the program can interact with them as if they were never gone.
+                # The save method always ensures this is up to date.
                 
                 self.addItem(item['name'],
                              item['quantity'],
                              item['price'])
                 
+            # 'isItemListPrinted' is an extended piece of functionality that prints out the items the JSON has loaded.
+            # Whether this is enabled depends on the boolean value is set to true when the method is called.
+            # By default it is set to false.
+            # In reality, this should have been a seperate method, but it does what it needs to do, and well.
+                
             if isItemListPrinted:
+                # This print statement indicates to the user the data they are viewing, and infers it is up to date.
+                
                 print("\nCurrent stock:")
             
                 for item in data['stock']:
+                    # Like above, we can go through the array of data and pick out the data from 'data' that is relevant to the user.
                     
                     print("\nID: " + str(item['id']))
+                    
+                    # It is not good for a user to know about an item that is out of stock.
+                    # An item knows when it has not quantity.
+                    # If the quantity is zero, 'hasStock' will be false and the relevant print statement will be called.
+                    
                     if item['hasStock']:
                         print(" Item name: " + item['name'])
                         print(" Item quantity: " + str(int(item['quantity'])))
                         print(" Item price: £" + str(item['price']))
                     else:
+                        # Called if an item has a quantity of zero.
+                        
                         print(" Item out of stock! Sorry :(")
+                        
+    # This method handles the purchase of an item.
                 
     def buyItem(self, id, quantity: int):
+        
+        # The moment the method is called we know the user is buying an item.
+        # 'isBuyingItem' indicates a user is buying an item.
+        
         isBuyingItem = True
+        
+        # The items is found using an ID the user has showed interest in and inputted earlier.
+        # This will never be out of range as a try/except statement handles this in iteration 2.
+        
         item: Item = self.items[id]
         
         while isBuyingItem:
+            
+            # Here we are taking the quantity the user has requested and subtracting it from the quantity of that item held in the stocklist.
 
             item.quantity -= quantity
             
+            # This value is the reassigned to the item quantity through the 'setQuantity' method.
+            # This is so the 'hasStock' attribute is updated to reflect whether there is any stock of the item left or not.
+            
             item.setQuantity(item.quantity)
+            
+            # We know once the quantity has been subtracted from the relevant item in the stocklist that the transaction must be complete.
+            # The loop can be exited by setting 'isBuyingItem' to false.
             
             isBuyingItem = False
             
+        # It is important that once the item is purchased that the 'stocklist.txt' file is updated.
+        # The if statement ensures that the purchase has definately been confirmed.
+        # It is impossible at this stage that this value would not be false, unless there is something I have missed.
+        # I have decided to include it anyway.
+            
         if not isBuyingItem:
             self.save()
+            
+# This is the instace of itemStore that is referenced throughout the app.
+# There is to only ever be one instance so that all the data correlates thoughout the program.
     
 itemStore = ItemStore()
         
