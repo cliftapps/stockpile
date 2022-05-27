@@ -2,7 +2,7 @@
   "stock": [
     {
       "name": "gold",
-      "quantity": 37.0,
+      "quantity": 36.0,
       "hasStock": true,
       "price": 50.55,
       "id": 0
