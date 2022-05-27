@@ -132,7 +132,7 @@ class Inputs:
                 
                 continue
             
-            # This inbedded if is only executed if 'isZeroAllowed' has been set to false.
+            # This embedded if is only executed if 'isZeroAllowed' has been set to false.
             # At this point, the method knows that zero inputs are not allowed.
             
             if not isZeroAllowed:
@@ -290,7 +290,9 @@ class ItemStore:
             # This is then held in one more dictionary called 'stock'.
             # 'stock' holds the array of items represented as dictionaries.
             
-            f.writelines(str(json.dumps({"stock": [item.__dict__ for item in self.items]}, indent = 2)))
+            data = {"stock": [item.__dict__ for item in self.items]}
+            
+            f.writelines(str(json.dumps(data, indent = 2)))
             
     # The load method here is responsible for reading the stockpile.txt file and decoding the JSON in order to access individual elements.
             

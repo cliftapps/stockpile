@@ -53,8 +53,10 @@ def add():
         # 'prepareToContinue' returns a True of false value depending on where 'y' or 'n' is inputted.
         # False ends the loop ('n').
         # True continues the loop ('y').
+        
+        message = "\nWould you like to add more items? y/n: "
     
-        isAdding = inputs.prepareToContinue("Would you like to add more items? y/n: ")
+        isAdding = inputs.prepareToContinue(message)
         
 # This starts the stock addition flow.
 
@@ -65,11 +67,14 @@ def start():
     print("\n--Add Stock--")
     
     # This creates the stocklist.
-    # If the stocklist exists, it will load the stocklist.
+    # If the stocklist exists, it will load the stocklist. 
+    
+    isException = False
     
     try:
         open(itemStore.path, "x")
     except:
+        isException = True
         
         print("\nLoaded stocklist")
         
@@ -79,6 +84,9 @@ def start():
             itemStore.load()
         except:
             print("\nNo data found")
+            
+    if not isException:
+        print("\nStocklist created")
             
     # Runs 'add()' method.
         

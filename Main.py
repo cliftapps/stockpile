@@ -1,6 +1,8 @@
 # Here I have imported Classes that holds all the reusable elements that are used throughout every file.
 # Iteration 1 and 2 are also imported to the relevant flows can be started.
 
+# NOTE: Some strings will be seperated into seperate variables to improve screenshot visibility.
+
 import Classes
 import Iteration1
 import Iteration2
@@ -42,8 +44,11 @@ def login():
             # This loop indicates the current login session, allowing a user to choose whether they want to view/order stock or,
             # to insert stock.
             
+            iterationChoiceMessage = "\nPlease enter 'i' to insert stock, or 'v' or 'o' to view/order stock: "
+            
             while security.isAuthenticated:
-                if inputs.prepareToContinue("\nPlease enter 'i' to insert stock, or 'v' or 'o' to view/order stock: ", isIterationDecision = True):
+                if inputs.prepareToContinue(iterationChoiceMessage, 
+                                            isIterationDecision = True):
                     # This calls the method start() from within Iteration 1 which starts the stock insertion flow.
                     
                     Iteration1.start()
@@ -53,8 +58,10 @@ def login():
                     Iteration2.start()
                     
                 # Once a user has finished with either iteration 1 or 2, they will be asked whether they want to continue their session or end the session.
+                
+                message = "Would you like to remain logged in? y/n: "   
                     
-                if inputs.prepareToContinue("Would you like to remain logged in? y/n: "):
+                if inputs.prepareToContinue(message):
                     continue
                 else: 
                     break

@@ -101,7 +101,7 @@ def start():
                 
                 itemStore.buyItem(id, quantity)
 
-                # Prints overvier of the order.
+                # Prints overview of the order.
                 
                 print("\nYour order has been processed!")
                 print(" Item name: " + name)
@@ -110,7 +110,9 @@ def start():
                 
                 # Determines whether a user wants to order more items or return to the 'login' method in the 'Main' file.
                 
-                isRunning = inputs.prepareToContinue("\nWould you like to purchase more items? y/n: ")
+                message = "\nWould you like to purchase more items? y/n: "
+                
+                isRunning = inputs.prepareToContinue(message)
             else:
                 # Statement is executed if user does not want to proceed with order.
                 

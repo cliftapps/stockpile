@@ -2,80 +2,38 @@
   "stock": [
     {
       "name": "gold",
-      "quantity": 0.0,
-      "hasStock": false,
-      "price": 44.0,
+      "quantity": 37.0,
+      "hasStock": true,
+      "price": 50.55,
       "id": 0
     },
     {
-      "name": "berried",
+      "name": "gold",
       "quantity": 0.0,
       "hasStock": false,
-      "price": 33.2,
+      "price": 12.0,
       "id": 1
     },
     {
-      "name": "hats",
-      "quantity": 19.0,
+      "name": "silver",
+      "quantity": 1.0,
       "hasStock": true,
-      "price": 20.0,
+      "price": 5.0,
       "id": 2
     },
     {
-      "name": "Gloves",
-      "quantity": 22,
+      "name": "hat",
+      "quantity": 11,
       "hasStock": true,
-      "price": 10.59,
+      "price": 13.0,
       "id": 3
     },
     {
-      "name": "gold",
-      "quantity": 12,
+      "name": "pink shirt",
+      "quantity": 33,
       "hasStock": true,
-      "price": 33.0,
+      "price": 2.0,
       "id": 4
-    },
-    {
-      "name": "hoodie",
-      "quantity": 12,
-      "hasStock": true,
-      "price": 33.0,
-      "id": 5
-    },
-    {
-      "name": "plank",
-      "quantity": 50.0,
-      "hasStock": true,
-      "price": 12.55,
-      "id": 6
-    },
-    {
-      "name": "golf ball",
-      "quantity": 400,
-      "hasStock": true,
-      "price": 5.0,
-      "id": 7
-    },
-    {
-      "name": "gold bar",
-      "quantity": 8,
-      "hasStock": true,
-      "price": 299.99,
-      "id": 8
-    },
-    {
-      "name": "t",
-      "quantity": 10.0,
-      "hasStock": true,
-      "price": 0.0,
-      "id": 9
-    },
-    {
-      "name": "gold",
-      "quantity": 12,
-      "hasStock": true,
-      "price": 22.0,
-      "id": 10
     }
   ]
 }
