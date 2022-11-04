@@ -34,6 +34,13 @@
       "hasStock": true,
       "price": 2.0,
       "id": 4
+    },
+    {
+      "name": "gold",
+      "quantity": 55,
+      "hasStock": true,
+      "price": 132.0,
+      "id": 5
     }
   ]
 }
